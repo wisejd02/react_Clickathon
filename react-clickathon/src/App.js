@@ -1,45 +1,46 @@
 import React, { Component } from "react";
-import FriendCard from "./components/FriendCard";
+import ImageCard from "./components/ImageCard";
 import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
-import friends from "./friends.json";
+import images from "./images.json";
 import "./App.css";
 
 let guess = [];
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    friends
+    images
   };
   
-  sortFriends = id => {
-    const friends = this.state.friends.sort(function(a, b){return 0.5 - Math.random()})
+  sortImages = id => {
+    let score ="";
+    let gmMsg="";
+    const images = this.state.images.sort(function(a, b){return 0.5 - Math.random()})
     // Set this.state.friends equal to the new friends array
     console.log(id);
     guess.includes(id)?
     guess = []:guess.push(id);
-    const score = guess.length;
+    score = guess.length;
+    (score === 0)?gmMsg=" You clicked on the same image twice! :-(":gmMsg="";
     console.log(guess);
     console.log(score);
     
-    this.setState({ friends, score });
+    this.setState({ images, score, gmMsg });
   };
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
       <Wrapper>
-        <Title>Friends List</Title>
-        <h1>Score: {this.state.score}</h1>
-        {this.state.friends.map(friend => (
-          <FriendCard
-            sortFriends={this.sortFriends}
-            id={friend.id}
-            key={friend.id}
-            name={friend.name}
-            image={friend.image}
-            occupation={friend.occupation}
-            location={friend.location}
+        <Title>React-Memory</Title>
+        <h1>Score: {this.state.score}{this.state.gmMsg}</h1>
+        {this.state.images.map(image => (
+          <ImageCard
+            sortImages={this.sortImages}
+            id={image.id}
+            key={image.id}
+            name={image.name}
+            image={image.image}
           />
         ))}
       </Wrapper>
