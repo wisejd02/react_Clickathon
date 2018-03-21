@@ -4,7 +4,7 @@ import "./FriendCard.css";
 const FriendCard = props => (
   <div className="card">
     <div className="img-container">
-      <img alt={props.name} src={props.image} />
+      <img alt={props.name} src={props.image} onClick={() => props.sortFriends(props.id)} className="remove"/>
     </div>
     <div className="content">
       <ul>
@@ -15,13 +15,10 @@ const FriendCard = props => (
           <strong>Occupation:</strong> {props.occupation}
         </li>
         <li>
-          <strong>Location:</strong> {props.location}
+          <strong>ID:</strong> {props.id}
         </li>
       </ul>
     </div>
-    <span onClick={() => props.removeFriend(props.id)} className="remove">
-      𝘅
-    </span>
   </div>
 );
 
